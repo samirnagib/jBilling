@@ -6,7 +6,7 @@ public class clientType implements Serializable  {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int idClientType;
+	private Integer idClientType;
 	private String typeName;
 	
 	public clientType() {
@@ -17,11 +17,11 @@ public class clientType implements Serializable  {
 		this.typeName = typeName;
 	}
 
-	public int getIdClientType() {
+	public Integer getIdClientType() {
 		return idClientType;
 	}
 
-	public void setIdClientType(int idClientType) {
+	public void setIdClientType(Integer idClientType) {
 		this.idClientType = idClientType;
 	}
 

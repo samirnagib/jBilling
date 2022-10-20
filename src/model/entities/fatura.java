@@ -2,7 +2,7 @@ package model.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 public class fatura  implements Serializable  {
 	

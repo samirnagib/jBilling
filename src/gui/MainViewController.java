@@ -51,7 +51,7 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private void onMenuClientTypeAction() {
-		System.out.println("onMenuItemClientTypesAction");
+		loadView("/gui/clientTypeList.fxml", x -> {});
 	}
 
 	@FXML
@@ -66,7 +66,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	private void onMenuItemConnectionAction() {
-		loadView("/gui/ConnectionView.fxml", x -> {});;
+		loadView("/gui/ConnectionView.fxml", x -> {});
 	}
 
 	@Override
