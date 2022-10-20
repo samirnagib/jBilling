@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import security.security;
 
 public class ConnectionViewController implements Initializable {
 	
@@ -58,10 +59,10 @@ public class ConnectionViewController implements Initializable {
 			 
 			e.printStackTrace();
 		}
-		txtDBAdress.setText(dbdata.getProperty("DB_URL"));
-		txtDBName.setText(dbdata.getProperty("DB_NAME"));
-		txtDBUserName.setText(dbdata.getProperty("DB_USER"));
-		txtDBPasswd.setText(dbdata.getProperty("DB_PASS"));
+		txtDBAdress.setText(security.securityShow(dbdata.getProperty("DB_URL")));
+		txtDBName.setText(security.securityShow(dbdata.getProperty("DB_NAME")));
+		txtDBUserName.setText(security.securityShow(dbdata.getProperty("DB_USER")));
+		txtDBPasswd.setText(security.securityShow(dbdata.getProperty("DB_PASS")));
 		
 		
 	}
@@ -98,11 +99,15 @@ public class ConnectionViewController implements Initializable {
 			dbName = txtDBName.getText().toLowerCase();
 			dbUsername = txtDBUserName.getText();
 			dbPassword = txtDBPasswd.getText();
+			String CODdbAdress = security.securityHide(3, dbAdress);
+			String CODdbName = security.securityHide(3, dbName);
+			String CODdbUsername = security.securityHide(1, dbUsername);
+			String CODdbPassword = security.securityHide(2, dbPassword);
 			
-			prop.put("DB_URL", dbAdress );
-			prop.put("DB_NAME", dbName );
-			prop.put("DB_USER", dbUsername );
-			prop.put("DB_PASS", dbPassword );
+			prop.put("DB_URL", CODdbAdress );
+			prop.put("DB_NAME", CODdbName );
+			prop.put("DB_USER", CODdbUsername );
+			prop.put("DB_PASS", CODdbPassword );
 		
 			try {
 				Path path = Paths.get(appPath+sSubFolder);
@@ -114,7 +119,7 @@ public class ConnectionViewController implements Initializable {
 				FileOutputStream outputStrem = new FileOutputStream(appPath+sSubFolder+sFileParameter);
 				
 		  		//Storing the properties file
-				prop.store(outputStrem, "ARQUIVO DE CONFIGURAÇÃO");
+				prop.store(outputStrem,null);
 				lblStatus.setText("Status: Arquivo de configuração criado.");
 				
 				outputStrem.close();
