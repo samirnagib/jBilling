@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+   <content>
+      <VBox prefHeight="197.0" prefWidth="590.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Ajustes">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onMenuItemBillTagsAction" text="Faixas de Cobrança" />
+                    <MenuItem mnemonicParsing="false" onAction="#onMenuOwnerAction" text="Responsáveis" />
+                        <MenuItem mnemonicParsing="false" onAction="#onMenuClientTypeAction" text="Tipos de servidores" />
+                        <MenuItem mnemonicParsing="false" onAction="#onMenuItemClientsAction" text="Servidores" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#onMenuItemInputBillAction" text="Bilhetagem" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Configuração">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#onMenuItemConnectionAction" text="Conexão" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
