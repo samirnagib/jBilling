@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ConnectionViewController">
    <children>
       <Label prefHeight="27.0" prefWidth="333.0" text="Parametros de conexão com o Banco">
          <font>
@@ -24,28 +24,62 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Carregar" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Salvar" />
+          <Button fx:id="btLoad" mnemonicParsing="false" onAction="#btLoadOnAction" prefHeight="25.0" prefWidth="95.0" text="Carregar" />
+            <Button fx:id="btSave" mnemonicParsing="false" onAction="#btSaveOnAction" prefHeight="25.0" prefWidth="92.0" text="Salvar" />
         </items>
       </ToolBar>
       <GridPane>
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="367.0" minWidth="10.0" prefWidth="257.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="507.0" minWidth="10.0" prefWidth="497.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="367.0" minWidth="10.0" prefWidth="130.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="624.0" minWidth="10.0" prefWidth="624.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Endereço do banco de dados" />
-            <Label text="Usuario do banco:" GridPane.rowIndex="1" />
-            <Label text="Senha:" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Endereço do Database">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></Label>
+            <Label text="Database:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Label text="Usuario do banco:" GridPane.rowIndex="2" />
+            <Label text="Senha:" GridPane.rowIndex="3" />
+            <TextField fx:id="txtDBAdress" promptText="Ex: myhostname.globoi.com" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="txtDBName" promptText="mydb" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="txtDBUserName" promptText="usuário" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin></TextField>
+            <PasswordField fx:id="txtDBPasswd" promptText="senha" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin></PasswordField>
          </children>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
       </GridPane>
+      <Label fx:id="lblStatus" text="Status:" textFill="#1603bc">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="5.0" left="10.0" top="50.0" />
+         </VBox.margin>
+      </Label>
    </children>
 </VBox>

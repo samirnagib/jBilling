@@ -82,33 +82,30 @@ public class Utils {
 	            );
 	    }
 	
-/*	
-	public static Client searchClientbyName(String searchClient) {
-		ClientDao cDao = DaoFactory.createClientDao();
-		Client client = new Client();
-		
-		client = cDao.findByName(searchClient);
-		
-		if (client == null) {
-			return null;
+
+	public static boolean getFileStatus() {
+		String sFileParameter="config.properties";
+		String sSubFolder = System.getProperty("file.separator")+"config"+System.getProperty("file.separator");
+		String appPath = System.getProperty("user.dir");
+
+		File fConfig = new File(appPath+sSubFolder+sFileParameter);
+		if  ( fConfig.isFile() ) {
+			return true;
+		} else {
+			return false;
 		}
-		
-		return client;
-		
-	}
-	
-	public static BillTags searchBillsTags(String searchBillTags ) {
-		BillTagsDao btDao = DaoFactory.createBillTagsDao();
-		BillTags bt = new BillTags();
-		
-		bt = btDao.findByName(searchBillTags);
-		
-		if (bt == null) {
-			return null;
-		}
-		return bt;
 	}
 
-	  */
+	public static File loadFileConfig() {
+			String sFileParameter="config.properties";
+			String sSubFolder = System.getProperty("file.separator")+"config"+System.getProperty("file.separator");
+			String appPath = System.getProperty("user.dir");
+
+			File fConfig = new File(appPath+sSubFolder+sFileParameter);
+			
+			return fConfig;
+			
+	}
+	
 	
 }
