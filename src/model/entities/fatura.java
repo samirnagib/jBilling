@@ -25,7 +25,7 @@ public class fatura  implements Serializable  {
 	private double cv_mediasize;
 	private double ib_taxcalculated;
 	
-	private tags tags;
+	private BillTags tags;
 	private clientes server;
 	private clientType serverType;
 	private owner dono;
@@ -34,7 +34,7 @@ public class fatura  implements Serializable  {
 	public fatura(Integer idInputBill, Timestamp ib_ano_mes, Integer id_billTag, Integer id_client, String cv_agent,
 			String cv_instance, String cv_backupset, String cv_subclient, String cv_storagepolicy, String cv_copyname,
 			double cv_febackupsize, double cv_fearchivesize, double cv_primaryappsize, double cv_protectedappsize,
-			double cv_mediasize, double ib_taxcalculated, model.entities.tags tags, clientes server,
+			double cv_mediasize, double ib_taxcalculated, model.entities.BillTags tags, clientes server,
 			clientType serverType, owner dono) {
 		this.idInputBill = idInputBill;
 		this.ib_ano_mes = ib_ano_mes;
@@ -153,10 +153,10 @@ public class fatura  implements Serializable  {
 	public void setIb_taxcalculated(double ib_taxcalculated) {
 		this.ib_taxcalculated = ib_taxcalculated;
 	}
-	public tags getTags() {
+	public BillTags getTags() {
 		return tags;
 	}
-	public void setTags(tags tags) {
+	public void setTags(BillTags tags) {
 		this.tags = tags;
 	}
 	public clientes getServer() {

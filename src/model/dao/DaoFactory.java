@@ -13,4 +13,8 @@ public class DaoFactory {
 		return new OwnerDaoJDBC(db.getConnection());
 	}
 
+	public static BillTagsDao createBillTagsDao() {
+		return new BillTagsDaoJDBC(db.getConnection());
+	}
+	
 }
