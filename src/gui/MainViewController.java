@@ -46,12 +46,14 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private void onMenuOwnerAction() {
-		System.out.println("onMenuOwnerAction");
+		loadView("/gui/OwnerList.fxml", x -> {});
+		//System.out.println("onMenuOwnerAction");
 	}
 
 	@FXML
 	private void onMenuClientTypeAction() {
-		loadView("/gui/clientTypeList.fxml", x -> {});
+		System.out.println("onMenuItemInputBillAction");
+		//loadView("/gui/clientTypeList.fxml", x -> {});
 	}
 
 	@FXML
