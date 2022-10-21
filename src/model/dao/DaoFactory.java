@@ -8,5 +8,9 @@ public class DaoFactory {
 	public static clientTypeDao createClientTypeDao() {
 		return new clientTypeDaoJDBC(db.getConnection());
 	}
+	
+	public static OwnerDao createOwnerDao() {
+		return new OwnerDaoJDBC(db.getConnection());
+	}
 
 }

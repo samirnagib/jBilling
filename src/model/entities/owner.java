@@ -6,7 +6,7 @@ public class owner implements Serializable  {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int idOwner;
+	private Integer idOwner;
 	private String owName;
 	private String owEmail1;
 	private String owEmail2;
