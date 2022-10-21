@@ -25,7 +25,7 @@ public class OwnerDaoJDBC implements OwnerDao {
 	public void insert(owner obj) {
 		PreparedStatement st = null;
 		try {
-			st = conexao.prepareStatement("INSERT INTO towner ( owName, owEmail1, owEmail2, owProjectArea, owAR) VALUES ( ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			st = conexao.prepareStatement("INSERT INTO towner ( owName, owEmail1, owEmail2, owProjectArea, owAR) VALUES ( ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getOwName());
 			st.setString(2, obj.getOwEmail1());
 			st.setString(3, obj.getOwEmail2());
@@ -83,7 +83,7 @@ public class OwnerDaoJDBC implements OwnerDao {
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conexao.prepareStatement("DELETE FROM owner WHERE idOwner = ?");
+			st = conexao.prepareStatement("DELETE FROM towner WHERE idOwner = ?");
 			st.setInt(1, id);
 			st.executeUpdate();
 			

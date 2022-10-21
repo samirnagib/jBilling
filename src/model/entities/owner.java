@@ -22,10 +22,10 @@ public class owner implements Serializable  {
 	}
 	public owner() {
 	}
-	public int getIdOwner() {
+	public Integer getIdOwner() {
 		return idOwner;
 	}
-	public void setIdOwner(int idOwner) {
+	public void setIdOwner(Integer idOwner) {
 		this.idOwner = idOwner;
 	}
 	public String getOwName() {

@@ -14,5 +14,21 @@ public class OwnerService {
 	public List<owner> findAll() {
 		return dao.findAll();
 	}
+	
+	public void saverOrUpdate(owner obj) {
+		if (obj.getIdOwner()==null) {
+			dao.insert(obj);
+		}else {
+			dao.update(obj);
+		}
+	}
+	
+	public void remove(owner obj) {
+		dao.deleteById(obj.getIdOwner());
+	}
+	
+	public owner findOwnerByName(String onwerName) {
+		return dao.findByName(onwerName);
+	}
 
 }
