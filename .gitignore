@@ -26,6 +26,7 @@ hs_err_pid*
 # folder exclude
 config/
 bin/
+.settings/
 
 #files excluides
 *.properties

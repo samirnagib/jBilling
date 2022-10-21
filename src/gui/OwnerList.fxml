@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="428.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OwnerListController">
+<VBox prefHeight="428.0" prefWidth="1144.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OwnerListController">
    <children>
       <Label text="Responsáveis">
          <font>
@@ -28,12 +28,12 @@
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="40.0" text="ID" />
           <TableColumn fx:id="tableColumnNome" prefWidth="250.0" text="RESPONSAVEL" />
-            <TableColumn fx:id="tableColumnEmail1" minWidth="1.0" prefWidth="150.0" text="EMAIL PRINCIPAL" />
-            <TableColumn fx:id="tableColumnEmail2" minWidth="0.0" prefWidth="150.0" text="EMAIL ALTERNATIVO" />
-            <TableColumn fx:id="tableColumnProjeto" minWidth="0.0" prefWidth="150.0" text="PROJETO" />
-            <TableColumn fx:id="tableColumnAR" prefWidth="60.0" text="AR" />
-            <TableColumn fx:id="tableColumnEDIT" prefWidth="50.0" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="50.0" />
+            <TableColumn fx:id="tableColumnEmail1" minWidth="1.0" prefWidth="180.0" text="EMAIL PRINCIPAL" />
+            <TableColumn fx:id="tableColumnEmail2" minWidth="0.0" prefWidth="180.0" text="EMAIL ALTERNATIVO" />
+            <TableColumn fx:id="tableColumnProjeto" minWidth="0.0" prefWidth="170.0" text="PROJETO" />
+            <TableColumn fx:id="tableColumnAR" prefWidth="120.0" text="AR" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="80.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="80.0" />
         </columns>
       </TableView>
    </children>

@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import model.services.OwnerService;
+import model.services.clientTypeServices;
 
 public class MainViewController implements Initializable {
 
@@ -55,8 +56,10 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private void onMenuClientTypeAction() {
-		System.out.println("onMenuItemInputBillAction");
-		//loadView("/gui/clientTypeList.fxml", x -> {});
+		loadView("/gui/clientTypeList.fxml", (ClientTypeListController controller) -> {
+			controller.setClientTypeServices(new clientTypeServices());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
