@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import model.services.BillTagsServices;
 import model.services.OwnerService;
 import model.services.clientTypeServices;
+import model.services.clientesService;
 
 public class MainViewController implements Initializable {
 
@@ -68,7 +69,10 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private void onMenuItemClientsAction() {
-		System.out.println("onMenuItemClientsAction");
+		loadView("/gui/ClientesList.fxml", (ClientesListController controller) -> {
+			controller.setClientesServices(new clientesService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
