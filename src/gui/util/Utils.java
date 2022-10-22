@@ -8,7 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage; 
 
 public class Utils {
@@ -84,6 +84,16 @@ public class Utils {
 			return fConfig;
 			
 	}
+	
+	public static String showInputData(String Title) {
+		TextInputDialog td = new TextInputDialog("entre com o servidor");
+		td.setHeaderText(Title);
+		td.showAndWait();
+		return td.getResult();
+		
+	}
+	
+	
 	
 	
 }

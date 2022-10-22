@@ -1,10 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.util.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,15 +43,6 @@ public class ClientesListController implements Initializable {
 	private TableColumn<clientes, String> tableColumnHostName;
 
 	@FXML
-	private TableColumn<clientes, String> tableColumnClientType;
-
-	@FXML
-	private TableColumn<clientes, String> tableColumnOwner;
-
-	@FXML
-	private TableColumn<clientes, String> tableColumnAR;
-
-	@FXML
 	private TableColumn<clientes, String> tableColumnEDIT;
 
 	@FXML
@@ -60,7 +53,7 @@ public class ClientesListController implements Initializable {
 	
 	private ObservableList<clientes> obsList;
 	
-	public void setClientesServices(clientesService service) {
+	public void setClienteServices(clientesService service) {
 		this.service = service;
 	}
 	
@@ -75,19 +68,28 @@ public class ClientesListController implements Initializable {
 		tableColumnID.setCellValueFactory(new PropertyValueFactory<>("idClient"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
 		tableColumnHostName.setCellValueFactory(new PropertyValueFactory<>("clientHostname"));
-		tableColumnClientType.setCellValueFactory(new PropertyValueFactory<>("typeName"));
-		tableColumnOwner.setCellValueFactory(new PropertyValueFactory<>("owName"));
-		tableColumnAR.setCellValueFactory(new PropertyValueFactory<>("owAR"));
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewClientes.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
 	public void updateTableView() {
+		
 		if (service == null) {
 			throw new IllegalStateException("O Service estava nulo");
 		}
 		List<clientes> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewClientes.setItems(obsList);
+	}
+	
+	
+	public void updateFilteredTableView(String Filter) {
+		
+		if (service == null) {
+			throw new IllegalStateException("O Service estava nulo");
+		}
+		List<clientes> list = service.findClientByName(Filter);
 		obsList = FXCollections.observableArrayList(list);
 		tableViewClientes.setItems(obsList);
 	}
@@ -100,12 +102,15 @@ public class ClientesListController implements Initializable {
 	}
 	@FXML
 	private void onbtFilterNameAction() {
-		System.out.println("btFilterName");
+		//System.out.println("btFilterName");
+		String valor = Utils.showInputData("Entre com o nome do servidor");
+		updateFilteredTableView(valor);
 	}
 	
 	@FXML
 	private void onbtResetFilterAction() {
 		System.out.println("ResetFilter");
+		updateTableView();
 	}
 	
 

@@ -70,7 +70,7 @@ public class MainViewController implements Initializable {
 	@FXML
 	private void onMenuItemClientsAction() {
 		loadView("/gui/ClientesList.fxml", (ClientesListController controller) -> {
-			controller.setClientesServices(new clientesService());
+			controller.setClienteServices(new clientesService());
 			controller.updateTableView();
 		});
 	}

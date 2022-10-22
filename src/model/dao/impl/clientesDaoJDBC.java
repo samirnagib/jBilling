@@ -11,6 +11,7 @@ import java.util.List;
 import db.DbException;
 import db.db;
 import model.dao.clientesDao;
+
 import model.entities.clientType;
 import model.entities.clientes;
 import model.entities.owner;
@@ -129,7 +130,7 @@ public class clientesDaoJDBC implements clientesDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conexao.prepareStatement("SELECT idClient, clientName, clientHostname,clienttype.typeName,towner.owName, towner.owAR FROM clientes INNER JOIN clienttype ON clientes.idType = clienttype.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner order by clientes.idClient");
+			st = conexao.prepareStatement("SELECT idClient, clientName, clientHostname,clientes.idType,clientes.idOwner,clienttype.typeName,towner.owName, towner.owAR FROM clientes INNER JOIN clienttype ON clientes.idType = clienttype.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner order by clientes.idClient");
 			rs = st.executeQuery();
 			List<clientes> list = new ArrayList<>();
 			while (rs.next()) {
@@ -147,6 +148,9 @@ public class clientesDaoJDBC implements clientesDao {
 
 	}
 
+		
+	//----
+	
 	private clientes instantiateClients(ResultSet rs) throws SQLException {
 		clientes cliente = new clientes();
 		clientType clientType = new clientType();
@@ -169,12 +173,10 @@ public class clientesDaoJDBC implements clientesDao {
 	}
 
 	@Override
-	public clientes findByName(String clientes) {
+	public List<clientes> findByName(String clientes) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
-	
-		String query = "SELECT idClient, clientName, clientHostname,clienttype.typeName,towner.owName, towner.owAR FROM clientes INNER JOIN clientType ON clientes.idType = clientType.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner WHERE clientes.clientName LIKE ? ESCAPE '!'";
-		
+		String query = "SELECT idClient, clientName, clientHostname,clienttype.typeName,clientes.idType,clientes.idOwner,towner.owName, towner.owAR FROM clientes INNER JOIN clientType ON clientes.idType = clientType.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner WHERE clientes.clientName LIKE ? ESCAPE '!'";
 		try {
 			clientes = clientes
 				    .replace("!", "!!")
@@ -183,16 +185,14 @@ public class clientesDaoJDBC implements clientesDao {
 				    .replace("[", "![");
 			st = conexao.prepareStatement( query );
 			st.setString(1, clientes +"%");
+			//System.out.println(st);
 			rs = st.executeQuery();
+			List<clientes> list = new ArrayList<>();
 			if (rs.next()) {
-				
-				
 				clientes client = instantiateClients(rs);
-				
-				return client;
+				list.add(client);
 			}
-			return null;
-			
+			return list;
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
 		}

@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="681.0" prefWidth="1291.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17">
+<VBox prefHeight="681.0" prefWidth="1291.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClientesListController">
    <children>
       <Label text="Clientes / Servidores">
          <padding>
@@ -22,21 +21,18 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Novo" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Filtrar por Nome" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Limpar Filtros" />
+          <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNovoAction" prefHeight="25.0" prefWidth="110.0" text="Novo" />
+            <Button fx:id="btFilterName" mnemonicParsing="false" onAction="#onbtFilterNameAction" prefHeight="25.0" prefWidth="110.0" text="Filtrar por Nome" />
+            <Button fx:id="btResetFilter" mnemonicParsing="false" onAction="#onbtResetFilterAction" prefHeight="25.0" prefWidth="110.0" text="Limpar Filtros" />
         </items>
       </ToolBar>
-      <TableView prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewClientes" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="60.0" text="ID" />
-          <TableColumn prefWidth="250.0" text="Nome" />
-          <TableColumn prefWidth="250.0" text="Hostname" />
-          <TableColumn prefWidth="150.0" text="Tipo" />
-          <TableColumn prefWidth="200.0" text="Responável" />
-          <TableColumn prefWidth="100.0" text="AR" />
-          <TableColumn prefWidth="90.0" text="EDITAR" />
-          <TableColumn prefWidth="90.0" text="REMOVER" />
+          <TableColumn fx:id="tableColumnID" prefWidth="60.0" text="ID" />
+          <TableColumn fx:id="tableColumnName" prefWidth="250.0" text="Nome" />
+          <TableColumn fx:id="tableColumnHostName" prefWidth="250.0" text="Hostname" />
+          <TableColumn fx:id="tableColumnEDIT" prefWidth="90.0" text="EDITAR" />
+          <TableColumn fx:id="tableColumnREMOVE" prefWidth="90.0" text="REMOVER" />
         </columns>
       </TableView>
    </children>

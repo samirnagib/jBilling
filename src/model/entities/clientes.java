@@ -2,6 +2,9 @@ package model.entities;
 
 import java.io.Serializable;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class clientes implements Serializable  {
 	
 	private static final long serialVersionUID = 1L;
@@ -31,6 +34,8 @@ public class clientes implements Serializable  {
 		this.clientType = clientType;
 		this.owner = owner;
 	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -12,6 +12,7 @@ public class owner implements Serializable  {
 	private String owEmail2;
 	private String owProjetoArea;
 	private String owAR;
+	
 	public owner(int idOwner, String owName, String owEmail1, String owEmail2, String owProjetoArea, String owAR) {
 		this.idOwner = idOwner;
 		this.owName = owName;

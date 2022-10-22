@@ -26,7 +26,7 @@ public class clientesService {
 		dao.deleteById(obj.getIdClient());
 	}
 	
-	public clientes findClientByName(String Cliente) {
+	public List<clientes> findClientByName(String Cliente) {
 		return dao.findByName(Cliente);
 	}
 

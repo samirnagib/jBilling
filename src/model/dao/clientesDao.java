@@ -11,6 +11,6 @@ public interface clientesDao {
 	void deleteById(Integer id);
 	clientes findById(Integer id);
 	List<clientes> findAll();
-	clientes findByName(String clientes);
+	List<clientes> findByName(String clientes);
 
 }
