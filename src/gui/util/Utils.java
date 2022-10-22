@@ -1,9 +1,6 @@
 package gui.util;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.LineNumberReader;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -11,13 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage; /*
-import model.dao.BillTagsDao;
-import model.dao.ClientDao;
-import model.dao.DaoFactory;
-import model.entities.BillTags;
-import model.entities.Client;*/
+
+import javafx.stage.Stage; 
 
 public class Utils {
 	public static Stage currentStage(ActionEvent event) {
@@ -67,20 +59,6 @@ public class Utils {
 			return cell;
 		});
 	}
-	
-	public static void configureFileChooserImportFiles(final FileChooser fileChooser, String title ) {      
-	            fileChooser.setTitle(title);
-	            fileChooser.setInitialDirectory(
-	                new File(System.getProperty("user.home"))
-	            );                 
-	            fileChooser.getExtensionFilters().addAll(
-	                
-	                new FileChooser.ExtensionFilter("Arquivo CSV", "*.csv"),
-	                new FileChooser.ExtensionFilter("Arquivo do MS Excel", "*.xlsx"),
-	                new FileChooser.ExtensionFilter("Arquivo de Texto", "*.txt"),
-	                new FileChooser.ExtensionFilter("Todos os Arquivos", "*.*")
-	            );
-	    }
 	
 
 	public static boolean getFileStatus() {

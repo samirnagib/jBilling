@@ -123,7 +123,7 @@ public class OwnerDaoJDBC implements OwnerDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conexao.prepareStatement("SELECT * FROM towner");
+			st = conexao.prepareStatement("SELECT * FROM towner order by owName");
 			rs = st.executeQuery();
 			List<owner> list = new ArrayList<>();
 			while (rs.next()) {
