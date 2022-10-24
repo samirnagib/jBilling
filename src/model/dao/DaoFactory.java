@@ -21,4 +21,8 @@ public class DaoFactory {
 		return new clientesDaoJDBC(db.getConnection());
 	}
 	
+	public static FaturaDao createFaturaDao() {
+		return new FaturaDaoJDBC(db.getConnection());
+	}
+	
 }

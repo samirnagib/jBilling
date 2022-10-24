@@ -1,7 +1,8 @@
 package model.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
+
 
 
 public class fatura  implements Serializable  {
@@ -9,7 +10,7 @@ public class fatura  implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer idInputBill;
-	private Timestamp  ib_ano_mes;
+	private Date  ib_ano_mes;
 	private Integer id_billTag;
 	private Integer id_client;
 	private String cv_agent;
@@ -31,7 +32,7 @@ public class fatura  implements Serializable  {
 	private owner dono;
 	public fatura() {
 	}
-	public fatura(Integer idInputBill, Timestamp ib_ano_mes, Integer id_billTag, Integer id_client, String cv_agent,
+	public fatura(Integer idInputBill, Date ib_ano_mes, Integer id_billTag, Integer id_client, String cv_agent,
 			String cv_instance, String cv_backupset, String cv_subclient, String cv_storagepolicy, String cv_copyname,
 			double cv_febackupsize, double cv_fearchivesize, double cv_primaryappsize, double cv_protectedappsize,
 			double cv_mediasize, double ib_taxcalculated, model.entities.BillTags tags, clientes server,
@@ -63,10 +64,10 @@ public class fatura  implements Serializable  {
 	public void setIdInputBill(Integer idInputBill) {
 		this.idInputBill = idInputBill;
 	}
-	public Timestamp getIb_ano_mes() {
+	public Date getIb_ano_mes() {
 		return ib_ano_mes;
 	}
-	public void setIb_ano_mes(Timestamp ib_ano_mes) {
+	public void setIb_ano_mes(Date ib_ano_mes) {
 		this.ib_ano_mes = ib_ano_mes;
 	}
 	public Integer getId_billTag() {
