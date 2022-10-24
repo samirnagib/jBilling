@@ -31,8 +31,8 @@
           <TableColumn fx:id="tableColumnID" prefWidth="60.0" text="ID" />
           <TableColumn fx:id="tableColumnName" prefWidth="250.0" text="Nome" />
           <TableColumn fx:id="tableColumnHostName" prefWidth="250.0" text="Hostname" />
-          <TableColumn fx:id="tableColumnEDIT" prefWidth="90.0" text="EDITAR" />
-          <TableColumn fx:id="tableColumnREMOVE" prefWidth="90.0" text="REMOVER" />
+          <TableColumn fx:id="tableColumnEDIT" prefWidth="90.0" />
+          <TableColumn fx:id="tableColumnREMOVE" prefWidth="90.0" />
         </columns>
       </TableView>
    </children>

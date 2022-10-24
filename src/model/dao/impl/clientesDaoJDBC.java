@@ -34,7 +34,7 @@ public class clientesDaoJDBC implements clientesDao {
 			st.setString(2,obj.getClientHostname());
 			st.setInt(3, obj.getClientType().getIdClientType());
 			st.setInt(4, obj.getOwner().getIdOwner());
-			st.setString(5, obj.getUuid());
+			st.setString(5, obj.getUuidClient());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -69,7 +69,7 @@ public class clientesDaoJDBC implements clientesDao {
 			st.setString(2, obj.getClientHostname());
 			st.setInt(3, obj.getClientType().getIdClientType());
 			st.setInt(4, obj.getOwner().getIdOwner());
-			st.setString(5, obj.getUuid());
+			st.setString(5, obj.getUuidClient());
 			st.setInt(6, obj.getIdClient());
 			
 			st.executeUpdate();
@@ -108,7 +108,7 @@ public class clientesDaoJDBC implements clientesDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conexao.prepareStatement("SELECT idClient, clientName, clientHostname,clienttype.typeName,towner.owName, towner.owAR FROM clientes INNER JOIN clientType ON clientes.idType = clientType.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner WHERE clientes.idClient = ");
+			st = conexao.prepareStatement("SELECT idClient, clientName, clientHostname,clienttype.typeName,towner.owName, towner.owAR, UUID FROM clientes INNER JOIN clientType ON clientes.idType = clientType.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner WHERE clientes.idClient = ");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
@@ -130,7 +130,7 @@ public class clientesDaoJDBC implements clientesDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conexao.prepareStatement("SELECT idClient, clientName, clientHostname,clientes.idType,clientes.idOwner,clienttype.typeName,towner.owName, towner.owAR FROM clientes INNER JOIN clienttype ON clientes.idType = clienttype.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner order by clientes.idClient");
+			st = conexao.prepareStatement("SELECT idClient, clientName, clientHostname,clientes.idType,clientes.idOwner,clienttype.typeName,towner.owName, towner.owAR, UUID FROM clientes INNER JOIN clienttype ON clientes.idType = clienttype.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner order by clientes.idClient");
 			rs = st.executeQuery();
 			List<clientes> list = new ArrayList<>();
 			while (rs.next()) {
@@ -166,6 +166,7 @@ public class clientesDaoJDBC implements clientesDao {
 		cliente.setIdClient(rs.getInt("idClient"));
 		cliente.setClientName(rs.getString("clientName"));
 		cliente.setClientHostname(rs.getString("clientHostname"));
+		cliente.setUuidClient(rs.getString("UUID"));
 		cliente.setClientType(clientType);
 		cliente.setOwner(owner);
 
@@ -176,7 +177,7 @@ public class clientesDaoJDBC implements clientesDao {
 	public List<clientes> findByName(String clientes) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		String query = "SELECT idClient, clientName, clientHostname,clienttype.typeName,clientes.idType,clientes.idOwner,towner.owName, towner.owAR FROM clientes INNER JOIN clientType ON clientes.idType = clientType.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner WHERE clientes.clientName LIKE ? ESCAPE '!'";
+		String query = "SELECT idClient, clientName, clientHostname,clienttype.typeName,clientes.idType,clientes.idOwner,towner.owName, towner.owAR, UUID FROM clientes INNER JOIN clientType ON clientes.idType = clientType.idType INNER JOIN towner ON clientes.idOwner = towner.idOwner WHERE clientes.clientName LIKE ? ESCAPE '!'";
 		try {
 			clientes = clientes
 				    .replace("!", "!!")
@@ -185,7 +186,6 @@ public class clientesDaoJDBC implements clientesDao {
 				    .replace("[", "![");
 			st = conexao.prepareStatement( query );
 			st.setString(1, clientes +"%");
-			//System.out.println(st);
 			rs = st.executeQuery();
 			List<clientes> list = new ArrayList<>();
 			if (rs.next()) {

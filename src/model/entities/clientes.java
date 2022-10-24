@@ -2,8 +2,6 @@ package model.entities;
 
 import java.io.Serializable;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class clientes implements Serializable  {
 	
@@ -14,7 +12,7 @@ public class clientes implements Serializable  {
 	private String clientHostname;
 	private Integer idType;
 	private Integer idOwner;
-	private String uuid;
+	private String uuidClient;
 	
 	// Campos para as tabelas externas
 		
@@ -24,13 +22,13 @@ public class clientes implements Serializable  {
 	public clientes() {
 	}
 	public clientes(Integer idClient, String clientName, String clientHostname, Integer idType, Integer idOwner,
-			String uuid, model.entities.clientType clientType, model.entities.owner owner) {
+			String uuidClient, model.entities.clientType clientType, model.entities.owner owner) {
 		this.idClient = idClient;
 		this.clientName = clientName;
 		this.clientHostname = clientHostname;
 		this.idType = idType;
 		this.idOwner = idOwner;
-		this.uuid = uuid;
+		this.uuidClient = uuidClient;
 		this.clientType = clientType;
 		this.owner = owner;
 	}
@@ -62,7 +60,7 @@ public class clientes implements Serializable  {
 	@Override
 	public String toString() {
 		return "clientes [idClient=" + idClient + ", clientName=" + clientName + ", clientHostname=" + clientHostname
-				+ ", idType=" + idType + ", idOwner=" + idOwner + ", uuid=" + uuid + ", clientType=" + clientType
+				+ ", idType=" + idType + ", idOwner=" + idOwner + ", uuidClient=" + uuidClient + ", clientType=" + clientType
 				+ ", owner=" + owner + "]";
 	}
 	public Integer getIdClient() {
@@ -95,12 +93,8 @@ public class clientes implements Serializable  {
 	public void setIdOwner(Integer idOwner) {
 		this.idOwner = idOwner;
 	}
-	public String getUuid() {
-		return uuid;
-	}
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+	
+	
 	public clientType getClientType() {
 		return clientType;
 	}
@@ -112,6 +106,12 @@ public class clientes implements Serializable  {
 	}
 	public void setOwner(owner owner) {
 		this.owner = owner;
+	}
+	public String getUuidClient() {
+		return uuidClient;
+	}
+	public void setUuidClient(String uuidClient) {
+		this.uuidClient = uuidClient;
 	}
 	
 	
