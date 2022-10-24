@@ -77,7 +77,7 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private void onMenuItemInputBillAction() {
-		System.out.println("onMenuItemInputBillAction");
+		loadView("/gui/FaturaList.fxml", x -> {});
 	}
 	
 	@FXML
