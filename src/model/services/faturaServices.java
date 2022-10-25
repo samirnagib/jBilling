@@ -1,6 +1,6 @@
 package model.services;
 
-import java.sql.Date;
+
 import java.util.List;
 
 import model.dao.DaoFactory;
@@ -11,11 +11,11 @@ public class faturaServices {
 	
 	private FaturaDao dao = DaoFactory.createFaturaDao();
 	
-	public List<fatura> findByDate(Date data){
+	public List<fatura> findByDate(String data){
 		return dao.findByDate(data);
 	}
 	
-	public List<fatura> findByPeriod(Date Inicial, Date Final){
+	public List<fatura> findByPeriod(String Inicial, String Final){
 		return dao.findByPeriod(Inicial, Final);
 	}
 	

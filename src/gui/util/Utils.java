@@ -1,6 +1,9 @@
 package gui.util;
 
 import java.io.File;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -60,6 +63,23 @@ public class Utils {
 		});
 	}
 	
+	public static <T> void formatTableColumnDate(TableColumn<T, Date> tableColumn, String formato) {
+		SimpleDateFormat format = new SimpleDateFormat(formato);
+		tableColumn.setCellFactory(column -> {
+			TableCell<T, Date> cell = new TableCell<T, Date>() {
+				@Override
+				protected void updateItem(Date item, boolean empty) {
+					super.updateItem(item, empty);
+					if (empty) {
+						setText(null);
+					} else {
+						setText(format.format(item));
+					}
+				}
+			};
+			return cell;
+		});
+	}
 
 	public static boolean getFileStatus() {
 		String sFileParameter="config.properties";
@@ -93,7 +113,13 @@ public class Utils {
 		
 	}
 	
-	
+	public static String convertData(String data) throws ParseException {
+		Date dataRecebida;
+		String dataSaida; 
+		dataRecebida = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt-BR")).parse(data);
+		dataSaida = new SimpleDateFormat("yyyy-MM-dd", new Locale("en-US")).format(dataRecebida);
+		return dataSaida;
+	}
 	
 	
 }

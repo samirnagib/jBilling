@@ -1,7 +1,6 @@
 package model.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -191,7 +190,7 @@ private Connection conexao;
 	}
 
 	@Override
-	public List<fatura> findByDate(Date Data) {
+	public List<fatura> findByDate(String Data) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -204,6 +203,7 @@ private Connection conexao;
 					+ "    clientes.idClient,\r\n"
 					+ "    clientes.clientName,\r\n"
 					+ "    clientes.clientHostname,\r\n"
+					+ "    clientes.UUID,\r\n"
 					+ "    billTags.idbillTag,\r\n"
 					+ "    billTags.billtagName,\r\n"
 					+ "    billTags.billPriceTB,\r\n"
@@ -223,6 +223,8 @@ private Connection conexao;
 					+ "    clientType.typeName,\r\n"
 					+ "    towner.idOwner,\r\n"
 					+ "    towner.owName,\r\n"
+					+ "    towner.owEmail1,\r\n"
+					+ "    towner.owEmail2,\r\n"
 					+ "    towner.owProjectArea,\r\n"
 					+ "    towner.owAR\r\n"
 					+ "FROM\r\n"
@@ -237,7 +239,7 @@ private Connection conexao;
 					+ "    towner ON clientes.idOwner = towner.idOwner\r\n"
 					+ "WHERE\r\n"
 					+ "    inputBill.ib_ano_mes =  ?") ;
-			st.setDate(1, Data);
+			st.setString(1, Data);
 			rs = st.executeQuery();
 			List<fatura> list = new ArrayList<>();
 			Map<Integer, BillTags> mapTag = new HashMap<>();
@@ -284,7 +286,7 @@ private Connection conexao;
 	}
 
 	@Override
-	public List<fatura> findByPeriod(Date Inicial, Date Final) {
+	public List<fatura> findByPeriod(String Inicial, String Final) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -297,6 +299,7 @@ private Connection conexao;
 					+ "    clientes.idClient,\r\n"
 					+ "    clientes.clientName,\r\n"
 					+ "    clientes.clientHostname,\r\n"
+					+ "    clientes.UUID,\r\n"
 					+ "    billTags.idbillTag,\r\n"
 					+ "    billTags.billtagName,\r\n"
 					+ "    billTags.billPriceTB,\r\n"
@@ -316,6 +319,8 @@ private Connection conexao;
 					+ "    clientType.typeName,\r\n"
 					+ "    towner.idOwner,\r\n"
 					+ "    towner.owName,\r\n"
+					+ "    towner.owEmail1,\r\n"
+					+ "    towner.owEmail2,\r\n"
 					+ "    towner.owProjectArea,\r\n"
 					+ "    towner.owAR\r\n"
 					+ "FROM\r\n"
@@ -330,8 +335,8 @@ private Connection conexao;
 					+ "    towner ON clientes.idOwner = towner.idOwner\r\n"
 					+ "WHERE\r\n"
 					+ "    inputBill.ib_ano_mes between ? and ?") ;
-			st.setDate(1, Inicial);
-			st.setDate(2, Final);
+			st.setString(1, Inicial);
+			st.setString(2, Final);
 			rs = st.executeQuery();
 			List<fatura> list = new ArrayList<>();
 			Map<Integer, BillTags> mapTag = new HashMap<>();
