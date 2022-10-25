@@ -120,6 +120,14 @@ public class Utils {
 		dataSaida = new SimpleDateFormat("yyyy-MM-dd", new Locale("en-US")).format(dataRecebida);
 		return dataSaida;
 	}
-	
+
+	public static String convertDataBR(Date data) throws ParseException {
+		String dataSaida; 
+		//System.out.println("Entrada: "+ data);
+		dataSaida = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt-BR")).format(data);
+		//System.out.println("Saida: "+ dataSaida);
+		return dataSaida;
+	}
+
 	
 }

@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.mysql.cj.QueryReturnType;
 
 import db.DbException;
 import db.db;
@@ -31,10 +34,10 @@ private Connection conexao;
 	public void insert(fatura obj) {
 		PreparedStatement st = null;
 		try {
-			st = conexao.prepareStatement("INSERT INTO inputbill (ib_ano_mes,id_billTag,id_client,cv_agent,cv_instance,cv_backupset,cv_subclient,cv_storagepolicy,cv_copyname,cv_febackupsize,cv_fearchivesize,cv_primaryappsize,cv_protectedappsize,cv_mediasize,ib_taxcalculated) VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			st = conexao.prepareStatement("INSERT INTO inputbill (ib_ano_mes,id_billTag,id_client,cv_agent,cv_instance,cv_backupset,cv_subclient,cv_storagepolicy,cv_copyname,cv_febackupsize,cv_fearchivesize,cv_primaryappsize,cv_protectedappsize,cv_mediasize,ib_taxcalculated) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )", Statement.RETURN_GENERATED_KEYS );
 			st.setDate(1, obj.getIb_ano_mes());
-			st.setInt(2, obj.getId_billTag());
-			st.setInt(3, obj.getId_client());
+			st.setInt(2, obj.getTags().getIdbillTag());
+			st.setInt(3, obj.getServer().getIdClient());
 			st.setString(4, obj.getCv_agent());
 			st.setString(5, obj.getCv_instance());
 			st.setString(6, obj.getCv_backupset());
@@ -47,6 +50,7 @@ private Connection conexao;
 			st.setDouble(13, obj.getCv_protectedappsize());
 			st.setDouble(14, obj.getCv_mediasize());
 			st.setDouble(15, obj.getIb_taxcalculated());
+			System.out.println(st);
 			int rowsAffected = st.executeUpdate();
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
@@ -62,6 +66,7 @@ private Connection conexao;
 			
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
+			
 		}
 		finally {
 			db.closeStatement(st);
@@ -77,7 +82,7 @@ private Connection conexao;
 			st = conexao.prepareStatement("UPDATE inputbill SET ib_ano_mes = ?, id_billTag = ?, id_client = ?, cv_agent = ?, cv_instance = ?, cv_backupset = ?, cv_subclient = ?, cv_storagepolicy = ?, cv_copyname = ?, cv_febackupsize = ?, cv_fearchivesize = ?, cv_primaryappsize = ?, cv_protectedappsize = ?, cv_mediasize = ?, ib_taxcalculated = ? WHERE idInputBill = ?");
 			
 			st.setDate(1, obj.getIb_ano_mes());
-			st.setInt(2, obj.getServerType().getIdClientType() );
+			st.setInt(2, obj.getTags().getIdbillTag() );
 			st.setInt(3, obj.getServer().getIdClient());
 			st.setString(4, obj.getCv_agent());
 			st.setString(5, obj.getCv_instance());

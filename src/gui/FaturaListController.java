@@ -1,18 +1,17 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javax.script.Bindings;
-
 import application.Main;
+import db.DbIntegrityException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -21,22 +20,31 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.entities.clientes;
 import model.entities.fatura;
+import model.services.BillTagsServices;
+import model.services.OwnerService;
+import model.services.clientTypeServices;
+import model.services.clientesService;
 import model.services.faturaServices;
 
-public class FaturaListController implements Initializable {
+public class FaturaListController implements Initializable, DataChangeListener {
 
 	@FXML
 	private Button btNovo;
@@ -90,25 +98,44 @@ public class FaturaListController implements Initializable {
 	private TableColumn<fatura, fatura> tableColumnREMOVE;
 	
 	
-	private faturaServices service;
+	private faturaServices fatService;
+
+	private clientesService clServices;
+	private clientTypeServices ctServices;
+	private OwnerService owServices;
+	private BillTagsServices btServices;
+	
+	private int retornoProcura;
+	private String retornoDataInicial;
+	private String retornoDataFinal;
+	
 	private ObservableList<fatura> obsFatura;
 	
 	public void setServices(faturaServices service) {
-		this.service = service;
+		this.fatService = service;
 	}
 	
+	public void setAllServices(faturaServices service, clientesService clServices, clientTypeServices ctServices, OwnerService owServices, BillTagsServices btServices) {
+		
+		this.fatService = service;
+		this.clServices = clServices;
+		this.ctServices = ctServices;
+		this.owServices = owServices;
+		this.btServices = btServices;
+	}
+	
+	
 	@FXML
-	private void btNovoOnAction() {
-		System.out.println("novo");
+	private void btNovoOnAction(ActionEvent event) throws ParseException {
+		fatura fat = new fatura();
+		Stage parentStage = Utils.currentStage(event);
+		createDialogForm(fat, "/gui/FaturaForm.fxml", parentStage);
 		
 	}
 	
 	@FXML
 	private void btPesquisarOnAction(ActionEvent event) throws ParseException {
-		service = new faturaServices();
-		System.out.println("Status rbPesquisarData    : " + rbPesquisarData.isArmed() + " "+ rbPesquisarData.isSelected());
-		System.out.println("Status rbPesquisarPeriodo : " + rbPesquisarPeriodo.isArmed() + " "+ rbPesquisarPeriodo.isSelected());
-		
+		fatService = new faturaServices();
 		if (rbPesquisarData.isSelected() ) {
 			String datapesquisa = null;
 			if (txtDtInicial.getText() == null || txtDtInicial.getText().trim().contentEquals("")) {
@@ -118,6 +145,8 @@ public class FaturaListController implements Initializable {
 			else {
 				datapesquisa = Utils.convertData(txtDtInicial.getText());
 				System.out.println(datapesquisa);
+				retornoDataInicial = datapesquisa;
+				retornoProcura = 0;
 				updateTableView(0, datapesquisa, null);
 			}
 		} else {
@@ -133,6 +162,9 @@ public class FaturaListController implements Initializable {
 				dataInicial = Utils.convertData(txtDtInicial.getText()); 
 				dataFinal = Utils.convertData(txtDtFinal.getText());
 				System.out.println(dataInicial + " a " + dataFinal);
+				retornoProcura =1;
+				retornoDataInicial = dataInicial;
+				retornoDataFinal = dataFinal;
 				updateTableView(1, dataInicial, dataFinal);
 				
 			}
@@ -216,21 +248,22 @@ public class FaturaListController implements Initializable {
 		 * 0 - to one date
 		 * 1 - to period 
 		 */
-		if (service == null) {
+		if (fatService == null) {
 			throw new IllegalStateException("ibServices was nulll");
 		}
 		List<fatura> list = new ArrayList<>();
 		if (SearchMethod == 0) {
-			list = service.findByDate(DataIncial);
+			list = fatService.findByDate(DataIncial);
 		} else if (SearchMethod == 1) {
-			list = service.findByPeriod(DataIncial, DataFinal);
+			list = fatService.findByPeriod(DataIncial, DataFinal);
 		} else {
 			throw new IllegalStateException("Parametro de seleção inválido.");
 		}
 
 		obsFatura = FXCollections.observableArrayList(list);
 		tableViewFatura.setItems(obsFatura);
-		
+		initEditButtons();
+		initRemoveButtons();
 		clearFilters();
 		 
 	}
@@ -238,6 +271,123 @@ public class FaturaListController implements Initializable {
 	private void clearFilters() {
 		txtDtInicial.setText("");
 		txtDtFinal.setText("");
+		
+	}
+	
+	private void createDialogForm(fatura obj, String absoluteName, Stage parentStage) throws ParseException {
+		try {
+			
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			Pane pane = loader.load();
+			
+			FaturaFormController controller = loader.getController();
+			controller.setFatura(obj);;
+			controller.setAllServices(new faturaServices(), new clientesService(), new clientTypeServices(), new OwnerService(), new BillTagsServices());
+			controller.loadAssociatedObjects();
+			controller.subscribeDataChangeListener(this);
+			controller.updateFormdata();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Alteração de dados do movimento:");
+			dialogStage.setScene(new Scene(pane));
+			dialogStage.setResizable(false);
+			dialogStage.initOwner(parentStage);
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.showAndWait();
+			
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
+		}
+		
+	}
+	
+	private void initEditButtons() {
+		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEDIT.setCellFactory(param -> new TableCell<fatura, fatura>() {
+			private final Button button = new Button("Editar");
+
+			@Override
+			protected void updateItem(fatura obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(
+						                          
+						event -> {
+							try {
+								createDialogForm(obj, "/gui/FaturaForm.fxml", Utils.currentStage(event));
+								
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+						});
+						
+			}
+		});
+	}
+
+	
+
+	private void initRemoveButtons() {
+		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnREMOVE.setCellFactory(param -> new TableCell<fatura, fatura>() {
+			private final Button button = new Button("Apagar");
+
+			@Override
+			protected void updateItem(fatura obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> removeEntity(obj));
+			}
+			
+		});
+	} 
+	
+	private void removeEntity(fatura obj) {
+		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
+
+		if (result.get() == ButtonType.OK) {
+			if (fatService == null) {
+				throw new IllegalStateException("Service was null");
+			}
+			try {
+				fatService.remove(obj);
+				if (retornoProcura == 0 ) {
+					updateTableView(0, retornoDataInicial, null);
+					System.out.println("updatetb 0"+ retornoDataInicial);
+				} else if (retornoProcura == 1 ) {
+					System.out.println("updatetb 1"+ retornoDataInicial +" " +retornoDataFinal );
+					updateTableView(1, retornoDataInicial, retornoDataFinal);
+				}
+			}
+			catch (DbIntegrityException e) {
+				Alerts.showAlert("Error removing object", null, e.getMessage(), AlertType.ERROR);
+			}
+		}
+	}
+	
+	
+	@Override
+	public void onDataChanged() {
+		if (retornoProcura == 0 ) {
+			updateTableView(0, retornoDataInicial, null);
+			System.out.println("updatetb 0"+ retornoDataInicial);
+		} else if (retornoProcura == 1 ) {
+			System.out.println("updatetb 1"+ retornoDataInicial +" " +retornoDataFinal );
+			updateTableView(1, retornoDataInicial, retornoDataFinal);
+		}
+			
+		
 		
 	}
 

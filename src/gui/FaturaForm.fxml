@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="589.0" prefWidth="564.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FaturaFormController">
+   <children>
+      <GridPane prefHeight="566.0" prefWidth="546.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="201.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="389.0" minWidth="10.0" prefWidth="345.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Sequencia:" />
+            <Label text="Referencia" GridPane.rowIndex="1" />
+            <Label text="Faixa de Cobrança:" GridPane.rowIndex="2" />
+            <Label text="Cliente:" GridPane.rowIndex="3" />
+            <Label text="Agente:" GridPane.rowIndex="4" />
+            <Label text="Instância:" GridPane.rowIndex="5" />
+            <Label text="BackupSet:" GridPane.rowIndex="6" />
+            <Label text="SubClient" GridPane.rowIndex="7" />
+            <Label text="Storage Policy" GridPane.rowIndex="8" />
+            <Label text="Cópia" GridPane.rowIndex="9" />
+            <Label text="Valor do TB da Faixa:" GridPane.rowIndex="10" />
+            <Label text="Front End Backup em TB:" GridPane.rowIndex="11" />
+            <Label text="Front End Archive em TB:" GridPane.rowIndex="12" />
+            <Label text="Primary App em TB:" GridPane.rowIndex="13" />
+            <Label text="Protected App em TB:" GridPane.rowIndex="14" />
+            <Label text="Media Size em TB:" GridPane.rowIndex="15" />
+            <Label text="Total:" GridPane.rowIndex="16">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="17">
+               <children>
+                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#btSaveOnAction" prefHeight="25.0" prefWidth="100.0" text="Salvar" />
+                  <Button fx:id="btCancel" mnemonicParsing="false" onAction="#btCancelOnAction" prefHeight="25.0" prefWidth="100.0" text="Cancelar" />
+                  <Button fx:id="btCalcular" mnemonicParsing="false" onAction="#btCalcularOnAction" prefHeight="25.0" prefWidth="100.0" text="Calcular" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <TextField fx:id="txtSeq" alignment="CENTER_RIGHT" editable="false" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtRef" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtAgente" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="cbTags" onAction="#cbTagsOnAction" prefHeight="25.0" prefWidth="344.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="cbServer" onAction="#cbServerOnAction" prefHeight="25.0" prefWidth="344.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtInstancia" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtBackupSet" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="txtSubCliente" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="txtStoragePolicy" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="txtCopia" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="txtVRFaixa" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="txtFEB" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <TextField fx:id="txtFEA" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <TextField fx:id="txtPriApp" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <TextField fx:id="txtProtApp" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+            <TextField fx:id="txtMedia" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+            <Label fx:id="lblVrTotal" alignment="CENTER_RIGHT" textAlignment="RIGHT" textFill="#2603b5" GridPane.columnIndex="1" GridPane.rowIndex="16">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+         </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </GridPane>
+   </children>
+</AnchorPane>
