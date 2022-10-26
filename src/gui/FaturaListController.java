@@ -144,7 +144,7 @@ public class FaturaListController implements Initializable, DataChangeListener {
 			}
 			else {
 				datapesquisa = Utils.convertData(txtDtInicial.getText());
-				System.out.println(datapesquisa);
+				
 				retornoDataInicial = datapesquisa;
 				retornoProcura = 0;
 				updateTableView(0, datapesquisa, null);
@@ -161,7 +161,7 @@ public class FaturaListController implements Initializable, DataChangeListener {
 			} else {
 				dataInicial = Utils.convertData(txtDtInicial.getText()); 
 				dataFinal = Utils.convertData(txtDtFinal.getText());
-				System.out.println(dataInicial + " a " + dataFinal);
+				
 				retornoProcura =1;
 				retornoDataInicial = dataInicial;
 				retornoDataFinal = dataFinal;
@@ -364,9 +364,9 @@ public class FaturaListController implements Initializable, DataChangeListener {
 				fatService.remove(obj);
 				if (retornoProcura == 0 ) {
 					updateTableView(0, retornoDataInicial, null);
-					System.out.println("updatetb 0"+ retornoDataInicial);
+					//System.out.println("updatetb 0"+ retornoDataInicial);
 				} else if (retornoProcura == 1 ) {
-					System.out.println("updatetb 1"+ retornoDataInicial +" " +retornoDataFinal );
+					//System.out.println("updatetb 1"+ retornoDataInicial +" " +retornoDataFinal );
 					updateTableView(1, retornoDataInicial, retornoDataFinal);
 				}
 			}
@@ -381,9 +381,9 @@ public class FaturaListController implements Initializable, DataChangeListener {
 	public void onDataChanged() {
 		if (retornoProcura == 0 ) {
 			updateTableView(0, retornoDataInicial, null);
-			System.out.println("updatetb 0"+ retornoDataInicial);
+			//System.out.println("updatetb 0"+ retornoDataInicial);
 		} else if (retornoProcura == 1 ) {
-			System.out.println("updatetb 1"+ retornoDataInicial +" " +retornoDataFinal );
+			//System.out.println("updatetb 1"+ retornoDataInicial +" " +retornoDataFinal );
 			updateTableView(1, retornoDataInicial, retornoDataFinal);
 		}
 			

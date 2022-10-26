@@ -25,7 +25,7 @@ public class BillTagsDaoJDBC implements BillTagsDao {
 	public void insert(BillTags obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("INSERT INTO billTags ( billtagName,billPriceTB) VALUES ( ?, ? )",Statement.RETURN_GENERATED_KEYS);
+			st = conn.prepareStatement("INSERT INTO billtags ( billtagName,billPriceTB) VALUES ( ?, ? )",Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, obj.getBilltagName());
 			st.setDouble(2, obj.getBillPriceTB());
@@ -57,7 +57,7 @@ public class BillTagsDaoJDBC implements BillTagsDao {
 	public void update(BillTags obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("UPDATE billTags SET billtagName = ?, billPriceTB = ? WHERE idbillTag = ?");
+			st = conn.prepareStatement("UPDATE billtags SET billtagName = ?, billPriceTB = ? WHERE idbillTag = ?");
 			
 			st.setString(1, obj.getBilltagName());
 			st.setDouble(2,obj.getBillPriceTB());
@@ -81,7 +81,7 @@ public class BillTagsDaoJDBC implements BillTagsDao {
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("DELETE FROM billTags WHERE idbillTag = ?");
+			st = conn.prepareStatement("DELETE FROM billtags WHERE idbillTag = ?");
 			
 			st.setInt(1, id);
 			
@@ -103,7 +103,7 @@ public class BillTagsDaoJDBC implements BillTagsDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT billTags.* FROM billTags WHERE idbillTag = ?");
+			st = conn.prepareStatement("SELECT billtags.* FROM billTags WHERE idbillTag = ?");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
@@ -127,7 +127,7 @@ public class BillTagsDaoJDBC implements BillTagsDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT billTags.* FROM billTags");
+			st = conn.prepareStatement("SELECT * FROM billtags");
 			rs = st.executeQuery();
 			List<BillTags> list = new ArrayList<>();
 			while (rs.next()) {
@@ -161,7 +161,7 @@ public class BillTagsDaoJDBC implements BillTagsDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 	
-		String query = "select billTags.* from billTags where billtagName like ? ESCAPE '!'";
+		String query = "select * from billtags where billtagName like ? ESCAPE '!'";
 		try {
 			billtagName = billtagName
 				    .replace("!", "!!")

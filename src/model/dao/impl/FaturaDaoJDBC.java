@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mysql.cj.QueryReturnType;
-
 import db.DbException;
 import db.db;
 import model.dao.FaturaDao;
@@ -50,7 +48,6 @@ private Connection conexao;
 			st.setDouble(13, obj.getCv_protectedappsize());
 			st.setDouble(14, obj.getCv_mediasize());
 			st.setDouble(15, obj.getIb_taxcalculated());
-			System.out.println(st);
 			int rowsAffected = st.executeUpdate();
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
@@ -113,7 +110,7 @@ private Connection conexao;
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conexao.prepareStatement("DELETE FROM inputBill WHERE idInputBill = ?");
+			st = conexao.prepareStatement("DELETE FROM inputbill WHERE idInputBill = ?");
 			st.setInt(1, id);
 			st.executeUpdate();
 		} catch (SQLException e) {
@@ -133,42 +130,42 @@ private Connection conexao;
 		try {
 			
 			st = conexao.prepareStatement("SELECT \r\n"
-					+ "    inputBill.idInputBill,\r\n"
-					+ "    inputBill.id_billTag,\r\n"
-					+ "    inputBill.ib_ano_mes,\r\n"
-					+ "    inputBill.id_client,\r\n"
+					+ "    inputbill.idInputBill,\r\n"
+					+ "    inputbill.id_billTag,\r\n"
+					+ "    inputbill.ib_ano_mes,\r\n"
+					+ "    inputbill.id_client,\r\n"
 					+ "    clientes.idClient,\r\n"
 					+ "    clientes.clientName,\r\n"
 					+ "    clientes.clientHostname,\r\n"
-					+ "    billTags.idbillTag,\r\n"
-					+ "    billTags.billtagName,\r\n"
-					+ "    billTags.billPriceTB,\r\n"
-					+ "    inputBill.cv_agent,\r\n"
-					+ "    inputBill.cv_instance,\r\n"
-					+ "    inputBill.cv_backupset,\r\n"
-					+ "    inputBill.cv_subclient,\r\n"
-					+ "    inputBill.cv_storagepolicy,\r\n"
-					+ "    inputBill.cv_copyname,\r\n"
-					+ "    inputBill.cv_febackupsize,\r\n"
-					+ "    inputBill.cv_fearchivesize,\r\n"
-					+ "    inputBill.cv_primaryappsize,\r\n"
-					+ "    inputBill.cv_protectedappsize,\r\n"
-					+ "    inputBill.cv_mediasize,\r\n"
-					+ "    inputBill.ib_taxcalculated,\r\n"
-					+ "    clientType.idType,\r\n"
-					+ "    clientType.typeName,\r\n"
+					+ "    billtags.idbillTag,\r\n"
+					+ "    billtags.billtagName,\r\n"
+					+ "    billtags.billPriceTB,\r\n"
+					+ "    inputbill.cv_agent,\r\n"
+					+ "    inputbill.cv_instance,\r\n"
+					+ "    inputbill.cv_backupset,\r\n"
+					+ "    inputbill.cv_subclient,\r\n"
+					+ "    inputbill.cv_storagepolicy,\r\n"
+					+ "    inputbill.cv_copyname,\r\n"
+					+ "    inputbill.cv_febackupsize,\r\n"
+					+ "    inputbill.cv_fearchivesize,\r\n"
+					+ "    inputbill.cv_primaryappsize,\r\n"
+					+ "    inputbill.cv_protectedappsize,\r\n"
+					+ "    inputbill.cv_mediasize,\r\n"
+					+ "    inputbill.ib_taxcalculated,\r\n"
+					+ "    clienttype.idType,\r\n"
+					+ "    clienttype.typeName,\r\n"
 					+ "    towner.idOwner,\r\n"
 					+ "    towner.owName,\r\n"
 					+ "    towner.owProjectArea,\r\n"
 					+ "    towner.owAR\r\n"
 					+ "FROM\r\n"
-					+ "    inputBill\r\n"
+					+ "    inputbill\r\n"
 					+ "        INNER JOIN\r\n"
-					+ "    billTags ON inputBill.id_billTag = billTags.idbillTag\r\n"
+					+ "    billtags ON inputbill.id_billTag = billtags.idbillTag\r\n"
 					+ "        INNER JOIN\r\n"
-					+ "    clientes ON inputBill.id_client = clientes.idClient\r\n"
+					+ "    clientes ON inputbill.id_client = clientes.idClient\r\n"
 					+ "        INNER JOIN\r\n"
-					+ "    clientType ON clientes.idType = clientType.idType\r\n"
+					+ "    clienttype ON clientes.idType = clienttype.idType\r\n"
 					+ "        INNER JOIN\r\n"
 					+ "    towner ON clientes.idOwner = towner.idOwner\r\n"
 					+ "WHERE\r\n"
@@ -201,31 +198,31 @@ private Connection conexao;
 		try {
 			
 			st = conexao.prepareStatement("SELECT \r\n"
-					+ "    inputBill.idInputBill,\r\n"
-					+ "    inputBill.id_billTag,\r\n"
-					+ "    inputBill.ib_ano_mes,\r\n"
-					+ "    inputBill.id_client,\r\n"
+					+ "    inputbill.idInputBill,\r\n"
+					+ "    inputbill.id_billTag,\r\n"
+					+ "    inputbill.ib_ano_mes,\r\n"
+					+ "    inputbill.id_client,\r\n"
 					+ "    clientes.idClient,\r\n"
 					+ "    clientes.clientName,\r\n"
 					+ "    clientes.clientHostname,\r\n"
 					+ "    clientes.UUID,\r\n"
-					+ "    billTags.idbillTag,\r\n"
-					+ "    billTags.billtagName,\r\n"
-					+ "    billTags.billPriceTB,\r\n"
-					+ "    inputBill.cv_agent,\r\n"
-					+ "    inputBill.cv_instance,\r\n"
-					+ "    inputBill.cv_backupset,\r\n"
-					+ "    inputBill.cv_subclient,\r\n"
-					+ "    inputBill.cv_storagepolicy,\r\n"
-					+ "    inputBill.cv_copyname,\r\n"
-					+ "    inputBill.cv_febackupsize,\r\n"
-					+ "    inputBill.cv_fearchivesize,\r\n"
-					+ "    inputBill.cv_primaryappsize,\r\n"
-					+ "    inputBill.cv_protectedappsize,\r\n"
-					+ "    inputBill.cv_mediasize,\r\n"
-					+ "    inputBill.ib_taxcalculated,\r\n"
-					+ "    clientType.idType,\r\n"
-					+ "    clientType.typeName,\r\n"
+					+ "    billtags.idbillTag,\r\n"
+					+ "    billtags.billtagName,\r\n"
+					+ "    billtags.billPriceTB,\r\n"
+					+ "    inputbill.cv_agent,\r\n"
+					+ "    inputbill.cv_instance,\r\n"
+					+ "    inputbill.cv_backupset,\r\n"
+					+ "    inputbill.cv_subclient,\r\n"
+					+ "    inputbill.cv_storagepolicy,\r\n"
+					+ "    inputbill.cv_copyname,\r\n"
+					+ "    inputbill.cv_febackupsize,\r\n"
+					+ "    inputbill.cv_fearchivesize,\r\n"
+					+ "    inputbill.cv_primaryappsize,\r\n"
+					+ "    inputbill.cv_protectedappsize,\r\n"
+					+ "    inputbill.cv_mediasize,\r\n"
+					+ "    inputbill.ib_taxcalculated,\r\n"
+					+ "    clienttype.idType,\r\n"
+					+ "    clienttype.typeName,\r\n"
 					+ "    towner.idOwner,\r\n"
 					+ "    towner.owName,\r\n"
 					+ "    towner.owEmail1,\r\n"
@@ -233,17 +230,17 @@ private Connection conexao;
 					+ "    towner.owProjectArea,\r\n"
 					+ "    towner.owAR\r\n"
 					+ "FROM\r\n"
-					+ "    inputBill\r\n"
+					+ "    inputbill\r\n"
 					+ "        INNER JOIN\r\n"
-					+ "    billTags ON inputBill.id_billTag = billTags.idbillTag\r\n"
+					+ "    billtags ON inputbill.id_billTag = billtags.idbillTag\r\n"
 					+ "        INNER JOIN\r\n"
-					+ "    clientes ON inputBill.id_client = clientes.idClient\r\n"
+					+ "    clientes ON inputbill.id_client = clientes.idClient\r\n"
 					+ "        INNER JOIN\r\n"
-					+ "    clientType ON clientes.idType = clientType.idType\r\n"
+					+ "    clienttype ON clientes.idType = clienttype.idType\r\n"
 					+ "        INNER JOIN\r\n"
 					+ "    towner ON clientes.idOwner = towner.idOwner\r\n"
 					+ "WHERE\r\n"
-					+ "    inputBill.ib_ano_mes =  ?") ;
+					+ "    inputbill.ib_ano_mes =  ?") ;
 			st.setString(1, Data);
 			rs = st.executeQuery();
 			List<fatura> list = new ArrayList<>();
@@ -297,31 +294,31 @@ private Connection conexao;
 		try {
 			
 			st = conexao.prepareStatement("SELECT \r\n"
-					+ "    inputBill.idInputBill,\r\n"
-					+ "    inputBill.id_billTag,\r\n"
-					+ "    inputBill.ib_ano_mes,\r\n"
-					+ "    inputBill.id_client,\r\n"
+					+ "    inputbill.idInputBill,\r\n"
+					+ "    inputbill.id_billTag,\r\n"
+					+ "    inputbill.ib_ano_mes,\r\n"
+					+ "    inputbill.id_client,\r\n"
 					+ "    clientes.idClient,\r\n"
 					+ "    clientes.clientName,\r\n"
 					+ "    clientes.clientHostname,\r\n"
 					+ "    clientes.UUID,\r\n"
-					+ "    billTags.idbillTag,\r\n"
-					+ "    billTags.billtagName,\r\n"
-					+ "    billTags.billPriceTB,\r\n"
-					+ "    inputBill.cv_agent,\r\n"
-					+ "    inputBill.cv_instance,\r\n"
-					+ "    inputBill.cv_backupset,\r\n"
-					+ "    inputBill.cv_subclient,\r\n"
-					+ "    inputBill.cv_storagepolicy,\r\n"
-					+ "    inputBill.cv_copyname,\r\n"
-					+ "    inputBill.cv_febackupsize,\r\n"
-					+ "    inputBill.cv_fearchivesize,\r\n"
-					+ "    inputBill.cv_primaryappsize,\r\n"
-					+ "    inputBill.cv_protectedappsize,\r\n"
-					+ "    inputBill.cv_mediasize,\r\n"
-					+ "    inputBill.ib_taxcalculated,\r\n"
-					+ "    clientType.idType,\r\n"
-					+ "    clientType.typeName,\r\n"
+					+ "    billtags.idbillTag,\r\n"
+					+ "    billtags.billtagName,\r\n"
+					+ "    billtags.billPriceTB,\r\n"
+					+ "    inputbill.cv_agent,\r\n"
+					+ "    inputbill.cv_instance,\r\n"
+					+ "    inputbill.cv_backupset,\r\n"
+					+ "    inputbill.cv_subclient,\r\n"
+					+ "    inputbill.cv_storagepolicy,\r\n"
+					+ "    inputbill.cv_copyname,\r\n"
+					+ "    inputbill.cv_febackupsize,\r\n"
+					+ "    inputbill.cv_fearchivesize,\r\n"
+					+ "    inputbill.cv_primaryappsize,\r\n"
+					+ "    inputbill.cv_protectedappsize,\r\n"
+					+ "    inputbill.cv_mediasize,\r\n"
+					+ "    inputbill.ib_taxcalculated,\r\n"
+					+ "    clienttype.idType,\r\n"
+					+ "    clienttype.typeName,\r\n"
 					+ "    towner.idOwner,\r\n"
 					+ "    towner.owName,\r\n"
 					+ "    towner.owEmail1,\r\n"
@@ -329,17 +326,17 @@ private Connection conexao;
 					+ "    towner.owProjectArea,\r\n"
 					+ "    towner.owAR\r\n"
 					+ "FROM\r\n"
-					+ "    inputBill\r\n"
+					+ "    inputbill\r\n"
 					+ "        INNER JOIN\r\n"
-					+ "    billTags ON inputBill.id_billTag = billTags.idbillTag\r\n"
+					+ "    billtags ON inputbill.id_billTag = billtags.idbillTag\r\n"
 					+ "        INNER JOIN\r\n"
-					+ "    clientes ON inputBill.id_client = clientes.idClient\r\n"
+					+ "    clientes ON inputbill.id_client = clientes.idClient\r\n"
 					+ "        INNER JOIN\r\n"
-					+ "    clientType ON clientes.idType = clientType.idType\r\n"
+					+ "    clienttype ON clientes.idType = clienttype.idType\r\n"
 					+ "        INNER JOIN\r\n"
 					+ "    towner ON clientes.idOwner = towner.idOwner\r\n"
 					+ "WHERE\r\n"
-					+ "    inputBill.ib_ano_mes between ? and ?") ;
+					+ "    inputbill.ib_ano_mes between ? and ?") ;
 			st.setString(1, Inicial);
 			st.setString(2, Final);
 			rs = st.executeQuery();
@@ -424,11 +421,11 @@ private Connection conexao;
 		return clientes;
 	}
 	
-	private fatura instatiateFatura(ResultSet rs, BillTags billTags, clientes client, clientType clientType, owner owner) throws SQLException {
+	private fatura instatiateFatura(ResultSet rs, BillTags billtags, clientes client, clientType clientType, owner owner) throws SQLException {
 		fatura f = new fatura();
 		f.setIdInputBill(rs.getInt("idInputBill"));
 		f.setIb_ano_mes(rs.getDate("ib_ano_mes"));
-		f.setTags(billTags);
+		f.setTags(billtags);
 		f.setServer(client);
 		f.setCv_agent(rs.getString("cv_agent"));
 		f.setCv_instance(rs.getString("cv_instance"));
